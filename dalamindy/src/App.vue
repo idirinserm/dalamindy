@@ -1,47 +1,52 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div id="app">
+    <img alt="Vue logo" :src="require('@/assets/LogoDalamindy.png')">
+    <h1>Votre plateforme de cours en ligne</h1>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <!-- Button at the top-right -->
+    <div class="top-right-button">
+      <v-menu open-on-hover>
+        <template v-slot:activator="{ props }">
+          <v-btn color="primary" v-bind="props">Dropdown</v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item v-for="(item, index) in items" :key="index">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script>
+export default {
+  name: 'App',
+  components: {},
+  data: () => ({
+    items: [
+      { title: 'Cours' },
+      { title: 'Profil' },
+      { title: 'Click Me' },
+      { title: 'Click Me 2' },
+    ],
+  }),
+};
+</script>
+
+<style>
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.top-right-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 </style>
