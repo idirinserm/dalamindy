@@ -1,32 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" :src="require('@/assets/LogoDalamindy.png')">
-    <h1>Votre plateforme de cours en ligne</h1>
+    <header>
+      <h1>Votre plateforme de cours en ligne</h1>
+      <img alt="Vue logo" :src="require('@/assets/LogoDalamindy.png')" class="logo">
 
-    <!-- Button at the top-right -->
-    <div class="top-right-button">
-      <v-menu open-on-hover>
-        <template v-slot:activator="{ props }">
-          <v-btn color="primary" v-bind="props">Dropdown</v-btn>
-        </template>
+      <div class="top-right-button">
+        <v-menu open-on-hover>
+          <template v-slot:activator="{ props }">
+            <v-btn color="primary" v-bind="props">Dropdown</v-btn>
+          </template>
 
-        <v-list>
-          <v-list-item v-for="(item, index) in items" :key="index">
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </div>
+          <v-list>
+            <v-list-item v-for="(item, index) in items" :key="index">
+              <v-btn v-if="item.title === 'Programme'" @click="redirectToProgrammePage">{{ item.title }}</v-btn>
+              <v-list-item-title v-else>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+    </header>
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  components: {},
+  methods: {
+    redirectToProgrammePage() {
+      this.$router.push({ name: 'Programme' });
+    },
+  },
   data: () => ({
     items: [
-      { title: 'Cours' },
+      { title: 'Programme' },
       { title: 'Profil' },
       { title: 'Click Me' },
       { title: 'Click Me 2' },
@@ -40,8 +46,16 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh;
+  padding-top: 30px;
+}
+
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 10%;
 }
 
 .top-right-button {
